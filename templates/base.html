@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LeadFlow CRM</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <span class="logo-icon">L</span>
+            <h2>LeadFlow</h2>
+        </div>
+
+        <p class="menu-label">WORKSPACE</p>
+
+        <nav>
+            <a href="{{ url_for('dashboard') }}" class="nav-link">
+                <span>▦</span> Dashboard
+            </a>
+
+            <a href="{{ url_for('leads') }}" class="nav-link">
+                <span>♙</span> All Leads
+            </a>
+
+            <a href="{{ url_for('follow_ups') }}" class="nav-link">
+    <span>◷</span> Follow-ups
+</a>
+
+            <a href="{{ url_for('add_lead') }}" class="nav-link">
+                <span>＋</span> Add New Lead
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="profile">
+                <div class="avatar">LF</div>
+                <div>
+                    <h4>Administrator</h4>
+                    <p>Workspace Owner</p>
+                </div>
+            </div>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- FLASH MESSAGES -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert {{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+</div>
+
+</body>
+</html>

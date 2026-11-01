@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<header class="topbar">
+    <div>
+        <h2>Follow-up Manager</h2>
+        <p>Keep track of your customer conversations and upcoming tasks.</p>
+    </div>
+    <a href="{{ url_for('add_lead') }}" class="primary-btn">
+        + Add Lead
+    </a>
+</header>
+
+<!-- TODAY'S FOLLOW-UPS -->
+<div class="content-card">
+
+    <div class="card-header">
+        <h2>Today's Follow-ups</h2>
+        <span>{{ todays_follow_ups|length }} Leads</span>
+    </div>
+
+    {% if todays_follow_ups %}
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Phone</th>
+                    <th>Company</th>
+                    <th>Status</th>
+                    <th>Follow-up Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for lead in todays_follow_ups %}
+                <tr>
+                    <td>{{ lead.name }}</td>
+                    <td>{{ lead.phone }}</td>
+                    <td>{{ lead.company }}</td>
+                    <td>{{ lead.status }}</td>
+                    <td>{{ lead.follow_up_date }}</td>
+                    <td>
+                        <a href="{{ url_for('edit_lead', lead_id=lead.id) }}">View / Edit</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        <p>No follow-ups scheduled for today.</p>
+    {% endif %}
+
+</div>
+
+
+<!-- OVERDUE FOLLOW-UPS -->
+<div class="content-card">
+
+    <div class="card-header">
+        <h2>Overdue Follow-ups</h2>
+        <span>{{ overdue_follow_ups|length }} Leads</span>
+    </div>
+
+    {% if overdue_follow_ups %}
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Phone</th>
+                    <th>Company</th>
+                    <th>Status</th>
+                    <th>Follow-up Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for lead in overdue_follow_ups %}
+                <tr>
+                    <td>{{ lead.name }}</td>
+                    <td>{{ lead.phone }}</td>
+                    <td>{{ lead.company }}</td>
+                    <td>{{ lead.status }}</td>
+                    <td>{{ lead.follow_up_date }}</td>
+                    <td>
+                        <a href="{{ url_for('edit_lead', lead_id=lead.id) }}">Reschedule</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        <p>No overdue follow-ups. Great work!</p>
+    {% endif %}
+
+</div>
+
+
+<!-- UPCOMING FOLLOW-UPS -->
+<div class="content-card">
+
+    <div class="card-header">
+        <h2>Upcoming Follow-ups</h2>
+        <span>{{ upcoming_follow_ups|length }} Leads</span>
+    </div>
+
+    {% if upcoming_follow_ups %}
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Phone</th>
+                    <th>Company</th>
+                    <th>Status</th>
+                    <th>Follow-up Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for lead in upcoming_follow_ups %}
+                <tr>
+                    <td>{{ lead.name }}</td>
+                    <td>{{ lead.phone }}</td>
+                    <td>{{ lead.company }}</td>
+                    <td>{{ lead.status }}</td>
+                    <td>{{ lead.follow_up_date }}</td>
+                    <td>
+                        <a href="{{ url_for('edit_lead', lead_id=lead.id) }}">View / Edit</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        <p>No upcoming follow-ups scheduled.</p>
+    {% endif %}
+
+</div>
+
+{% endblock %}

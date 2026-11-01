@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>Edit Lead</h1>
+    <p>Update customer information and follow-up details.</p>
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST">
+
+        <label>Customer Name *</label>
+        <input type="text" name="name"
+               value="{{ lead.name }}" required>
+
+        <label>Email Address</label>
+        <input type="email" name="email"
+               value="{{ lead.email or '' }}">
+
+        <label>Phone Number</label>
+        <input type="text" name="phone"
+               value="{{ lead.phone or '' }}">
+
+        <label>Company</label>
+        <input type="text" name="company"
+               value="{{ lead.company or '' }}">
+
+        <label>Lead Source</label>
+        <select name="source">
+            {% for option in ['Website', 'Social Media', 'Referral', 'Advertisement', 'Cold Calling', 'Other'] %}
+                <option value="{{ option }}"
+                    {% if lead.source == option %}selected{% endif %}>
+                    {{ option }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label>Lead Status</label>
+        <select name="status">
+            {% for option in ['New', 'Contacted', 'Interested', 'Converted', 'Lost'] %}
+                <option value="{{ option }}"
+                    {% if lead.status == option %}selected{% endif %}>
+                    {{ option }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label>Follow-up Date</label>
+        <input type="date" name="follow_up_date"
+               value="{{ lead.follow_up_date or '' }}">
+
+        <label>Additional Notes</label>
+        <textarea name="notes" rows="4">{{ lead.notes or '' }}</textarea>
+
+        <button type="submit">Update Lead</button>
+
+        <a href="{{ url_for('leads') }}" class="cancel-btn">
+            Cancel
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}

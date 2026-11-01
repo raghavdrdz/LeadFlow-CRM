@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+<h1>Add New Lead</h1>
+<p>Enter customer information to add a new lead.</p>
+
+{% if error %}
+    <p style="color: red;">{{ error }}</p>
+{% endif %}
+
+<form method="POST">
+
+    <label>Customer Name *</label>
+    <input type="text" name="name" required>
+
+    <label>Email Address</label>
+    <input type="email" name="email">
+
+    <label>Phone Number</label>
+    <input type="text" name="phone">
+
+    <label>Company</label>
+    <input type="text" name="company">
+
+    <label>Lead Source</label>
+    <select name="source">
+        <option value="">Select Source</option>
+        <option value="Website">Website</option>
+        <option value="Social Media">Social Media</option>
+        <option value="Referral">Referral</option>
+        <option value="Advertisement">Advertisement</option>
+        <option value="Cold Calling">Cold Calling</option>
+        <option value="Other">Other</option>
+    </select>
+
+    <label>Lead Status</label>
+    <select name="status">
+        <option value="New">New</option>
+        <option value="Contacted">Contacted</option>
+        <option value="Interested">Interested</option>
+        <option value="Converted">Converted</option>
+        <option value="Lost">Lost</option>
+    </select>
+
+    <label>Follow-up Date</label>
+    <input type="date" name="follow_up_date">
+
+    <label>Additional Notes</label>
+    <textarea name="notes" rows="4"></textarea>
+
+    <button type="submit">Save Lead</button>
+
+</form>
+
+</div>
+
+{% endblock %}

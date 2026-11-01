@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<header class="topbar">
+
+    <div>
+        <h2>Welcome to LeadFlow</h2>
+        <p>Manage your relationships. Grow your business.</p>
+    </div>
+
+    <a href="{{ url_for('add_lead') }}" class="primary-btn">
+        + Add Lead
+    </a>
+
+</header>
+
+<section class="dashboard">
+
+
+<div class="section-heading">
+    <div>
+        <h1>Dashboard</h1>
+        <p>Here's what's happening with your leads.</p>
+    </div>
+</div>
+
+
+<!-- STATISTICS -->
+<div class="stats-grid">
+
+    <div class="stat-card">
+        <p>Total Leads</p>
+        <h2>{{ total_leads }}</h2>
+        <span class="stat-icon">♙</span>
+    </div>
+
+    <div class="stat-card">
+        <p>New Leads</p>
+        <h2>{{ new_leads }}</h2>
+        <span class="stat-icon">✦</span>
+    </div>
+
+    <div class="stat-card">
+        <p>Interested Leads</p>
+        <h2>{{ interested_leads }}</h2>
+        <span class="stat-icon">♡</span>
+    </div>
+
+    <div class="stat-card">
+        <p>Converted Leads</p>
+        <h2>{{ converted_leads }}</h2>
+        <span class="stat-icon">✓</span>
+    </div>
+
+</div>
+
+<!-- LEAD STATUS DISTRIBUTION -->
+<div class="content-card chart-card">
+
+    <div class="card-header">
+        <div>
+            <h2>Lead Status Distribution</h2>
+            <p>Understand how your leads are progressing.</p>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <canvas id="leadStatusChart"></canvas>
+    </div>
+
+</div>
+
+<script>
+    const chartCanvas = document.getElementById('leadStatusChart');
+
+    const leadStatusData = {
+        newLeads: Number("{{ new_leads }}"),
+        contactedLeads: Number("{{ contacted_leads }}"),
+        interestedLeads: Number("{{ interested_leads }}"),
+        convertedLeads: Number("{{ converted_leads }}"),
+        lostLeads: Number("{{ lost_leads }}")
+    };
+
+    new Chart(chartCanvas, {
+        type: 'doughnut',
+
+        data: {
+            labels: [
+                'New',
+                'Contacted',
+                'Interested',
+                'Converted',
+                'Lost'
+            ],
+
+            datasets: [{
+                data: [
+                    leadStatusData.newLeads,
+                    leadStatusData.contactedLeads,
+                    leadStatusData.interestedLeads,
+                    leadStatusData.convertedLeads,
+                    leadStatusData.lostLeads
+                ],
+
+                backgroundColor: [
+                    '#6478e8',
+                    '#36a2eb',
+                    '#f5b544',
+                    '#36b37e',
+                    '#ed6675'
+                ],
+
+                borderWidth: 0,
+                hoverOffset: 8
+            }]
+        },
+
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+
+            plugins: {
+                legend: {
+                    position: 'right'
+                }
+            },
+
+            cutout: '65%'
+        }
+    });
+</script>
+
+<!-- RECENT LEADS -->
+<div class="content-card">
+
+    <div class="card-header">
+        <div>
+            <h2>Recent Leads</h2>
+            <p>Your latest customer enquiries</p>
+        </div>
+
+        <a href="{{ url_for('leads') }}" class="text-link">
+            View All →
+        </a>
+    </div>
+
+
+    <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Company</th>
+                    <th>Status</th>
+                    <th>Lead Source</th>
+                    <th>Follow-up</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for lead in recent_leads %}
+
+                <tr>
+                    <td>
+                        <strong>{{ lead.name }}</strong>
+                        <small>{{ lead.email }}</small>
+                    </td>
+
+                    <td>{{ lead.company or '-' }}</td>
+
+                    <td>
+                        <span class="status {{ lead.status|lower }}">
+                            {{ lead.status }}
+                        </span>
+                    </td>
+
+                    <td>{{ lead.source or '-' }}</td>
+
+<td>{{ lead.follow_up_date or 'Not scheduled' }}</td>
+                </tr>
+
+                {% else %}
+
+                <tr>
+                    <td colspan="5" class="empty-state">
+                        No leads available yet. Add your first lead!
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+</section>
+
+{% endblock %}
