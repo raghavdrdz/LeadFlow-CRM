@@ -81,12 +81,13 @@ LeadFlow CRM was developed as a practical project to explore web application dev
 
 ### Lead Management
 
-![Lead Management](screenshots/leads.png)
+![Lead Management](screenshots/Lead%20Management.png)
 
 ### Add New Lead
 
-![Add Lead](screenshots/add-lead.png)
+![Add Lead](screenshots/Add%20Lead.png)
 
 ### Follow-up Management
 
 ![Follow-ups](screenshots/follow-ups.png)
+
