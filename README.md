@@ -73,3 +73,20 @@ LeadFlow CRM was developed as a practical project to explore web application dev
 ---
 
 **Developed as a portfolio project.**
+## Application Preview
+
+### Dashboard
+
+![Dashboard](screenshots/dashboard.png)
+
+### Lead Management
+
+![Lead Management](screenshots/leads.png)
+
+### Add New Lead
+
+![Add Lead](screenshots/add-lead.png)
+
+### Follow-up Management
+
+![Follow-ups](screenshots/follow-ups.png)
